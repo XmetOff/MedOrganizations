@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MedOrg.Models.Patient>
+
+@{
+    ViewBag.Title = "Главная";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Главная</h2>
+
+@using (Html.BeginForm("Index", "PatientsAttach", FormMethod.Post))
+{
+    @Html.TextBox("query")
+    <input type="submit" value="Поиск" />
+}
+
+<p>
+    @Html.ActionLink("Создать нового пациента", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AttachRequest.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IIN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedOrganization.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AttachRequest.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MiddleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IIN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedOrganization.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Подробнее", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id = item.Id }) |
+            @Html.ActionLink("Прикрепить", "AttachRequest", new { id = item.Id })
+        </td>
+    </tr>
+    }
+
+</table>

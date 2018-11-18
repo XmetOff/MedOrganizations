@@ -1,0 +1,28 @@
+﻿@model MedOrg.Models.LoginModel
+
+@{
+    ViewBag.Title = "Вход";
+}
+
+<h2>Вход на сайт</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.ValidationSummary()
+        <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+        <p>
+            <label>Логин</label><br />
+            @Html.EditorFor(x => x.Login)
+        </p>
+        <p>
+            <label>Пароль</label><br />
+            @Html.EditorFor(x => x.Password)
+        </p>
+        <p><button type="submit">Войти</button></p>
+    </div>
+}
+

@@ -1,0 +1,93 @@
+﻿@model MedOrg.Models.Patient
+
+@{
+    ViewBag.Title = "Запрос";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Запрос на прикрепрение</h2>
+
+<div>
+    <h4>Пациент</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AttachRequest.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttachRequest.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IIN)
+        </dd>
+
+        <dt>
+            Медицинская организация
+        </dt>
+
+        @using (Html.BeginForm("AttachRequest", "PatientsAttach", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.Id)
+            if (ViewBag.ReadOnly == "true")
+            {
+                <dd>
+                    @Html.TextBox("medOrgName", (string)ViewBag.MedOrg, new { @readonly = (string)ViewBag.ReadOnly })
+
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    @Html.TextBox("medOrgName", (string)ViewBag.MedOrg)
+                </dd>
+
+            }
+            <br/>
+            <input type="submit" value="Создать запрос" class="btn btn-default" />
+
+        }
+
+
+
+
+
+    </dl>
+</div>
+
+    
+<div>
+    @Html.ActionLink("Назад к списку", "Index")
+</div>
+        
+        
+

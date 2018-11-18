@@ -1,0 +1,76 @@
+﻿@model MedOrg.Models.AttachRequest
+
+@{
+    ViewBag.Title = "Подробнее";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Подробнее</h2>
+
+<div>
+    <h4>Запрос на прикрепление</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HandleDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HandleDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedOrganization.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedOrganization.Name)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    @using (Html.BeginForm("ApplyRequest", "Requests", FormMethod.Post))
+    {
+        @Html.Hidden("requestId", Model.Id)
+        @Html.Hidden("medOrgId", Model.MedOrganization.Id)
+        <input type="submit" value="Одобрить" />
+    }
+</p>
+<p>
+    @using (Html.BeginForm("RejectRequest", "Requests", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.Id)
+        <input type="submit" value="Отклонить" />
+    }
+</p>
+
+@Html.ActionLink("Назад к списку", "Index")
+
+
+

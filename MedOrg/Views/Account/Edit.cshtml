@@ -1,0 +1,35 @@
+﻿@model MedOrg.Models.EditModel
+
+@{
+    /**/
+
+    ViewBag.Title = "Редактирование";
+}
+
+<h2>Редактировать данные профиля</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.ValidationSummary(true, "")
+        <div>
+            <p>Медицинская организация: @Html.EditorFor(model => model.MedOrganization)</p>
+        </div>
+
+        <div>
+            <div>
+                <input type="submit" value="Сохранить" />
+            </div>
+        </div>
+    </div>
+}
+
+<br/>
+
+@using (Html.BeginForm("Delete", "Account", FormMethod.Post))
+{
+    <input type="submit" value="Удалить аккаунт" />
+}
+

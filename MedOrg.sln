@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedOrg", "MedOrg\MedOrg.csproj", "{D270CC6E-2461-4774-BDA1-8CDF1B7E0E0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D270CC6E-2461-4774-BDA1-8CDF1B7E0E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D270CC6E-2461-4774-BDA1-8CDF1B7E0E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D270CC6E-2461-4774-BDA1-8CDF1B7E0E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D270CC6E-2461-4774-BDA1-8CDF1B7E0E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B2EA038-B79B-4705-B879-F13930E58E87}
+	EndGlobalSection
+EndGlobal

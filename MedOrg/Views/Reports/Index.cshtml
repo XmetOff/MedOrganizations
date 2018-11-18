@@ -1,0 +1,73 @@
+﻿@model IEnumerable<MedOrg.Models.MedOrganization>
+
+@{
+    ViewBag.Title = "Отчет";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Отчет о прикрепленных пациентах</h2>
+
+@using (Html.BeginForm("Index", "Reports", FormMethod.Post))
+{
+    @Html.TextBox("query")
+    <input type="submit" value="Поиск" />
+}
+
+<br/>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Patients.First().FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Patients.First().LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Patients.First().MiddleName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Patients.First().IIN)
+                        </th>
+                    </tr>
+
+                    @foreach (var patient in item.Patients)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => patient.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => patient.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => patient.MiddleName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => patient.IIN)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </td>
+        </tr>
+    }
+
+</table>
