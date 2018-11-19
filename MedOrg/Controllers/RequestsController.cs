@@ -10,6 +10,8 @@ using MedOrg.Models;
 
 namespace MedOrg.Controllers
 {
+    [Authorize(Roles = "control")]
+
     public class RequestsController : Controller
     {
         private ApplicationContext db = new ApplicationContext();

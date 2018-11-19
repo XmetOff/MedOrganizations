@@ -17,14 +17,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Прикрепление пациентов", "Index", "PatientsAttach", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "PatientsAttach")</li>
-                    <li>@Html.ActionLink("Запросы на прикрепление", "Index", "Requests")</li>
-                    <li>@Html.ActionLink("Отчеты о пациентах", "Index", "Reports")</li>
-                    <li>@Html.ActionLink("Права доступа", "Index", "Roles")</li>
+                    @if (Request.IsAuthenticated && User.IsInRole("patientAttach"))
+                    {
+                        <li>@Html.ActionLink("Прикрепление пациентов", "Index", "PatientsAttach")</li>
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("control"))
+                    {
+                        <li>@Html.ActionLink("Запросы на прикрепление", "Index", "Requests")</li>
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("reports"))
+                    {
+                        <li>@Html.ActionLink("Отчеты о пациентах", "Index", "Reports")</li>
+                    }
+                    @if (Request.IsAuthenticated && User.Identity.Name == "admin")
+                    {
+                        <li>@Html.ActionLink("Права доступа", "Index", "Roles")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

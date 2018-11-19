@@ -11,51 +11,75 @@
 {
     @Html.AntiForgeryToken()
 
-<div>
     <h4>Регистрация пользователя</h4>
     <hr />
-    @Html.ValidationSummary(false)
+    <div class="form-horizontal">
+        @Html.ValidationSummary(false)
 
-    <div>
-        Логин
+        <div class="form-group">
+            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PasswordConfirm, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PasswordConfirm, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PasswordConfirm, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MedOrganization, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MedOrganization, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MedOrganization, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PatientAttach, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PatientAttach, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PatientAttach, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Control, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Control, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Control, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reports, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Reports, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Reports, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br />
+
         <div>
-            @Html.EditorFor(model => model.Login)
+            <div>
+                <input type="submit" value="Зарегистрировать" />
+            </div>
         </div>
     </div>
-
-    <div>
-        Медицинская организация
-        <div>
-            @Html.EditorFor(model => model.MedOrganization)
-        </div>
-    </div>
-
-    <div>
-        Права доступа
-        <div>
-            @Html.DropDownListFor(model => model.RoleName, new SelectList(ViewBag.Roles, "Value", "Text"))
-        </div>
-    </div>
-
-    <div>
-        Пароль
-        <div>
-            @Html.EditorFor(model => model.Password)
-        </div>
-    </div>
-
-    <div>
-        Подтвердить пароль
-        <div>
-            @Html.EditorFor(model => model.PasswordConfirm)
-        </div>
-    </div>
-
-    <div>
-        <div>
-            <input type="submit" value="Зарегистрировать" />
-        </div>
-    </div>
-</div>
-}
+ }
 

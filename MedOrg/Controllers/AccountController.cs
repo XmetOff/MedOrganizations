@@ -55,12 +55,21 @@ namespace MedOrg.Controllers
                     
                 };
                 IdentityResult result = UserManager.Create(user, model.Password);
-
-                UserManager.AddToRole(user.Id, model.RoleName);
-
+               
                 if (result.Succeeded)
                 {
-                    result = UserManager.AddToRoles(user.Id, model.RoleName);
+                    if (model.PatientAttach)
+                    {
+                        UserManager.AddToRole(user.Id, "patientAttach");
+                    }
+                    if (model.Control)
+                    {
+                        UserManager.AddToRole(user.Id, "control");
+                    }
+                    if (model.Reports)
+                    {
+                        UserManager.AddToRole(user.Id, "reports");
+                    }
                     return RedirectToAction("Login", "Account");
                 }
                 else
@@ -109,7 +118,10 @@ namespace MedOrg.Controllers
                         IsPersistent = true
                     }, claim);
                     if (String.IsNullOrEmpty(returnUrl))
-                        return RedirectToAction("Index", "PatientsAttach");
+                    {
+                            return RedirectToAction("Edit", "Account");
+                    }
+                        
                     return Redirect(returnUrl);
                 }
             }

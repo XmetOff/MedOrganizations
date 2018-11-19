@@ -68,7 +68,7 @@
             else
             {
                 <dd>
-                    @Html.TextBox("medOrgName", (string)ViewBag.MedOrg)
+                    @Html.DropDownList("medOrgName", new SelectList(ViewBag.MedOrgs, "Value", "Text"))
                 </dd>
 
             }

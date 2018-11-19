@@ -12,6 +12,8 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace MedOrg.Controllers
 {
+    [Authorize(Roles = "reports")]
+
     public class ReportsController : Controller
     {
         private ApplicationUserManager UserManager
@@ -35,19 +37,19 @@ namespace MedOrg.Controllers
         // GET: Reports
         public ActionResult Index()
         {
-            ApplicationUser user = UserManager.FindByName(User.Identity.Name);
-            string roleId = user.Roles.First().RoleId.ToString();
-            var role = RoleManager.FindById(roleId);
-            string userMedOrg = user.MedOrganization;
-
-            List<MedOrganization> medOrganizations = null; 
-            if (role.Name != "admin")
+            List<MedOrganization> medOrganizations = null;
+            string userQuery = UserManager.FindByName(User.Identity.Name).MedOrganization;
+            if (User.IsInRole("control"))
             {
-                medOrganizations = db.MedOrganizations.Where(p => p.Name == userMedOrg).Include(x => x.Patients).ToList();
+                medOrganizations = db.MedOrganizations.Include(x => x.Patients).ToList();
+
             }
             else
             {
-                medOrganizations = db.MedOrganizations.Include(x => x.Patients).ToList();
+                medOrganizations = db.MedOrganizations
+                    .Where(p => p.Name == userQuery)
+                    .Include(x => x.Patients)
+                    .ToList();
             }
 
             return View(medOrganizations);
@@ -56,20 +58,21 @@ namespace MedOrg.Controllers
         [HttpPost]
         public ActionResult Index(string query)
         {
-
-            ApplicationUser user = UserManager.FindByName(User.Identity.Name);
-            string roleId = user.Roles.First().RoleId.ToString();
-            var role = RoleManager.FindById(roleId);
-            string userMedOrg = user.MedOrganization;
-
             List<MedOrganization> medOrganizations = null;
-            if (role.Name != "admin")
+            string userQuery = UserManager.FindByName(User.Identity.Name).MedOrganization;
+            if (User.IsInRole("control"))
             {
-                medOrganizations = db.MedOrganizations.Where(p => p.Name == userMedOrg).Include(x => x.Patients).ToList();
+                medOrganizations = db.MedOrganizations
+                    .Where(p => p.Name.Contains(query))
+                    .Include(x => x.Patients)
+                    .ToList();
             }
             else
             {
-                medOrganizations = db.MedOrganizations.Where(p => p.Name.Contains(query)).Include(x => x.Patients).ToList();
+                medOrganizations = db.MedOrganizations
+                    .Where(p => p.Name == userQuery)
+                    .Include(x => x.Patients)
+                    .ToList();
             }
 
             return View(medOrganizations);

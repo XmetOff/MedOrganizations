@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace MedOrg.Controllers
 {
+    [Authorize(Roles = "patientAttach")]
     public class PatientsAttachController : Controller
     {
         private ApplicationContext db = new ApplicationContext();
@@ -46,7 +47,7 @@ namespace MedOrg.Controllers
                 {
                     patientsToView.Add(patient);
                 }
-                else if (patient.AttachRequest.Status != "В обработке")
+                else if (patient.AttachRequest.Status != "В обработке" && patient.AttachRequest.Status != "Прикреплен")
                     patientsToView.Add(patient);
             }
 
@@ -69,8 +70,8 @@ namespace MedOrg.Controllers
                 {
                     patientsToView.Add(patient);
                 }
-                else if (patient.AttachRequest.Status != "В обработке")
-                    patientsToView.Add(patient);
+                else if (patient.AttachRequest.Status != "В обработке" && patient.AttachRequest.Status != "Прикреплен")
+                        patientsToView.Add(patient);
             }
             return View(patientsToView);
         }
@@ -180,13 +181,8 @@ namespace MedOrg.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize]
         public ActionResult AttachRequest(int? id)
         {
-            ApplicationUser user = UserManager.FindByName(User.Identity.Name);
-            string roleId = user.Roles.First().RoleId.ToString();
-            var role = RoleManager.FindById(roleId);
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -197,15 +193,25 @@ namespace MedOrg.Controllers
                 return HttpNotFound();
             }
 
-            if (role.Name != "admin")
+            if (User.IsInRole("control"))
             {
-                ViewBag.MedOrg = user.MedOrganization;
-                ViewBag.ReadOnly = "true";
+                List<SelectListItem> list = new List<SelectListItem>();
+
+                foreach (var item in db.MedOrganizations)
+                {
+                    list.Add(new SelectListItem() { Value = item.Name, Text = item.Name });
+                }
+                ViewBag.MedOrgs = list;
+                ViewBag.ReadOnly = "false";
             }
             else
             {
-                ViewBag.ReadOnly = "false";
+                ViewBag.MedOrg = UserManager.FindByName(User.Identity.Name).MedOrganization;
+                ViewBag.ReadOnly = "true";
             }
+
+            
+
 
             return View(patient);
         }

@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace MedOrg.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Users = "admin")]
     public class RolesController : Controller
     {
         private ApplicationRoleManager RoleManager
